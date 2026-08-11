@@ -4,11 +4,9 @@ import { Image } from "expo-image";
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Text>Edit the app/index.tsx to edit this screen </Text>
-      <Image
-        source={require("../../assets/images/icon.png")}
-        style={{ width: 200, height: 200, borderRadius: 20}}
-      />
+      <Text className="text-white text-4xl bg-purple-900">
+        Edit the app/index.tsx to edit this screen 
+      </Text>
     </View>
   );
 }
@@ -18,6 +16,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "pink"
+    backgroundColor: "gray"
   },
 });
