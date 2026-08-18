@@ -10,7 +10,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.grocify"
+      "bundleIdentifier": "com.anonymous.grocify",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -20,9 +23,9 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "ios": {
-          "config": {
-              "usesNonExemptEncryption": false
-          }
+        "config": {
+          "usesNonExemptEncryption": false
+        }
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
