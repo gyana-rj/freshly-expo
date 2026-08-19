@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import useSocialAuth from "../hooks/useSocialAuth";
+import useSocialAuth from "../../hooks/useSocialAuth";
 import {Pressable, Text, View } from "react-native";
 import { Image } from "expo-image"
 import { FontAwesome, FontAwesome6 } from "@expo/vector-icons"
