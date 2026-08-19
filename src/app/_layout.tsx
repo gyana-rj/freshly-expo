@@ -2,7 +2,7 @@ import { ClerkProvider } from '@clerk/expo'
 import { tokenCache } from '@clerk/expo/token-cache'
 import { Stack } from "expo-router";
 import "../../global.css"
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { ThemeProvider, DarkTheme, DefaultTheme } from "expo-router/react-navigation";
 import { useColorScheme } from 'react-native';
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
