@@ -1,51 +1,76 @@
 import { useAuth } from "@clerk/expo";
-import { Redirect, Stack } from "expo-router";
-import { NativeTabs } from 'expo-router/unstable-native-tabs';
-import { useColorScheme } from "nativewind";
+import { Redirect, Tabs } from "expo-router";
+import { BlurView } from "expo-blur";
+import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet } from "react-native";
 
 export default function TabsLayout() {
   const { isSignedIn, isLoaded } = useAuth();
 
-  const { colorScheme } = useColorScheme();
-  const isDark = colorScheme === "dark";
-  const tabTintColor = isDark ? "hsl(142 70% 54%)" : "hsl(147 75% 33%)";
+  if (!isLoaded) return null;
+  if (!isSignedIn) return <Redirect href="/(auth)/sign-in" />;
 
-  if (!isLoaded) {
-    return null;
-  }
-
-  if (!isSignedIn) {
-    return <Redirect href="/(auth)/sign-in" />;
-  }
-
-  return <NativeTabs tintColor={tabTintColor}>
-      <NativeTabs.Trigger name="index">
-        <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf={{
-          default: "list.bullet.clipboard", 
-          selected: "list.bullet.clipboard.fill"
-        }} 
-        md="list" />
-      </NativeTabs.Trigger>
-
-      <NativeTabs.Trigger name="planner">
-        <NativeTabs.Trigger.Icon sf={{
-          default: "plus.circle",
-          selected: "plus.circle.fill"
-        }} 
-        md="add" />
-        <NativeTabs.Trigger.Label>Planner</NativeTabs.Trigger.Label>
-      </NativeTabs.Trigger>
-
-
-      <NativeTabs.Trigger name="insights">
-        <NativeTabs.Trigger.Icon sf={{
-          default: "chart.bar",
-          selected: "chart.bar.fill"
-        }} 
-        md="analytics" />
-        <NativeTabs.Trigger.Label>Insights</NativeTabs.Trigger.Label>
-      </NativeTabs.Trigger>
-
-  </NativeTabs>
+  return (
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: "#3498db", // Your selected icon color
+        tabBarInactiveTintColor: "#8e8e93",
+        tabBarStyle: {
+          position: "absolute",
+          bottom: 0,
+          borderTopWidth: 0,
+          elevation: 0, // Removes the solid shadow on Android
+          backgroundColor: "transparent", // Required for the blur to show through
+        },
+        tabBarBackground: () => (
+          <BlurView 
+            tint="dark" 
+            intensity={80} 
+            style={StyleSheet.absoluteFill} 
+          />
+        ),
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Home",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons 
+              name={focused ? "list" : "list-outline"} 
+              size={24} 
+              color={color} 
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="planner"
+        options={{
+          title: "Planner",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons 
+              name={focused ? "add-circle" : "add-circle-outline"} 
+              size={24} 
+              color={color} 
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="insights"
+        options={{
+          title: "Insights",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons 
+              name={focused ? "bar-chart" : "bar-chart-outline"} 
+              size={24} 
+              color={color} 
+            />
+          ),
+        }}
+      />
+    </Tabs>
+  );
 }
