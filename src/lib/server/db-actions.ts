@@ -27,7 +27,7 @@ export const createGroceryItems = async (input: {
     return rows[0]
 }
 
-export const setGroceryItems = async (id: string, purchased: boolean) => {
+export const setGroceryItemPurchased = async (id: string, purchased: boolean) => {
     const rows = await db
     .update(groceryItems)
     .set({ purchased, updated_at: Date.now() })
@@ -54,6 +54,6 @@ export const deleteGroceryItems = async (id: string) => {
     await db.delete(groceryItems).where(eq(groceryItems.id, id));
 };
 
-export const clearPurchasedItems = async (id: string) => {
+export const clearPurchasedItems = async () => {
     await db.delete(groceryItems).where(eq(groceryItems.purchased, true));
 };
