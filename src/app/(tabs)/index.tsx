@@ -22,7 +22,7 @@ export default function ListScreen() {
           paddingHorizontal: 20, paddingTop: insets.top + 20
         }}
         contentInsetAdjustmentBehavior="automatic"
-      
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <View style={{ gap: 14 }}>
               <TabScreenBackground />
