@@ -2,10 +2,24 @@ import { useAuth } from "@clerk/expo";
 import { Redirect, Tabs } from "expo-router";
 import { BlurView } from "expo-blur";
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet } from "react-native";
+import { StyleSheet, useColorScheme } from "react-native";
+import { useGroceryStore } from "@/src/store/grocery-store";
+import { useEffect } from "react";
 
 export default function TabsLayout() {
   const { isSignedIn, isLoaded } = useAuth();
+  const{ loadItems, items } = useGroceryStore();
+
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
+
+  const activeIconColor = isDark ? "#4ade80" : "#047857"; 
+  const inactiveIconColor = isDark ? "#8e8e93" : "#52525b";
+  const blurTheme = isDark ? "dark" : "light";
+
+  useEffect(() => {
+    loadItems();
+  }, [])
 
   if (!isLoaded) return null;
   if (!isSignedIn) return <Redirect href="/(auth)/sign-in" />;
@@ -14,8 +28,8 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#3498db", // Your selected icon color
-        tabBarInactiveTintColor: "#8e8e93",
+        tabBarActiveTintColor: activeIconColor, 
+        tabBarInactiveTintColor: inactiveIconColor,
         tabBarStyle: {
           position: "absolute",
           bottom: 0,
@@ -25,7 +39,7 @@ export default function TabsLayout() {
         },
         tabBarBackground: () => (
           <BlurView 
-            tint="dark" 
+            tint= {blurTheme} 
             intensity={80} 
             style={StyleSheet.absoluteFill} 
           />
@@ -35,7 +49,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "List",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons 
               name={focused ? "list" : "list-outline"} 
