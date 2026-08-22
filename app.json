@@ -22,7 +22,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.grocify"
+      "package": "com.anonymous.grocify",
+      "softwareKeyboardLayoutMode": "resize"
     },
     "web": {
       "output": "server",

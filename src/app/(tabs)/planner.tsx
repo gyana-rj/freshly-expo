@@ -4,6 +4,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import TabScreenBackground from '@/src/components/TabScreenBackground';
 import { FontAwesome6 } from '@expo/vector-icons';
 import PlannerHeroImage from '@/src/components/planner/PlannerHeroImage';
+import PlannerFormCard from '@/src/components/planner/PlannerFormCard';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 
 const PlannerScreen = () => {
   const { items } = useGroceryStore();
@@ -17,7 +19,8 @@ const PlannerScreen = () => {
     .filter((item) => !item.purchased)
     .reduce((sum, item) => sum + item.quantity, 0);
   return (
-    <ScrollView className='flex-1 bg-background py-4'
+    <KeyboardAwareScrollView className='flex-1 bg-background py-4'
+    bottomOffset={80}
       contentInsetAdjustmentBehavior='automatic'
       contentContainerStyle={{ 
         paddingTop: insets.top + 20,
@@ -25,6 +28,7 @@ const PlannerScreen = () => {
         gap: 14
       }}
       showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
     >
       <TabScreenBackground />
 
@@ -72,7 +76,17 @@ const PlannerScreen = () => {
       </View>
 
     <PlannerHeroImage />
-    </ScrollView>
+
+     <View className="px-1">
+        <Text className="text-sm font-semibold uppercase tracking-[1px] text-muted-foreground">
+          Build your list
+        </Text>
+        <Text className="mt-1 text-sm text-muted-foreground">
+          Add items with the right quantity, category, and urgency.
+        </Text>
+      </View> 
+      <PlannerFormCard />
+    </KeyboardAwareScrollView>
   )
 }
 
