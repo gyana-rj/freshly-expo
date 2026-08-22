@@ -19,12 +19,12 @@ const PlannerScreen = () => {
     .filter((item) => !item.purchased)
     .reduce((sum, item) => sum + item.quantity, 0);
   return (
-    <KeyboardAwareScrollView className='flex-1 bg-background py-4'
+    <KeyboardAwareScrollView className='flex-1 bg-background'
     bottomOffset={80}
       contentInsetAdjustmentBehavior='automatic'
       contentContainerStyle={{ 
-        paddingTop: insets.top + 20,
-        padding: 20,
+        paddingTop: insets.top + 10,
+        paddingHorizontal: 20,
         gap: 14
       }}
       showsVerticalScrollIndicator={false}
@@ -77,15 +77,19 @@ const PlannerScreen = () => {
 
     <PlannerHeroImage />
 
-     <View className="px-1">
+         <View className="gap-0">
+      <View className="px-1">
         <Text className="text-sm font-semibold uppercase tracking-[1px] text-muted-foreground">
           Build your list
         </Text>
         <Text className="mt-1 text-sm text-muted-foreground">
           Add items with the right quantity, category, and urgency.
         </Text>
-      </View> 
-      <PlannerFormCard />
+      </View>
+      <View className="-mt-1">
+        <PlannerFormCard />
+      </View>
+    </View>
     </KeyboardAwareScrollView>
   )
 }
